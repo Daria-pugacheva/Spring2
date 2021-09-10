@@ -30,6 +30,10 @@
                 templateUrl: 'create_product/create_product.html',
                 controller: 'createProductController'
             })
+            .when('/registration', {
+                templateUrl: 'registration/registration.html',
+                controller: 'registrationController'
+            })
             .otherwise({
                 redirectTo: '/'
             });
@@ -42,7 +46,7 @@
     }
 })();
 
-angular.module('market-front').controller('indexController', function ($rootScope, $scope, $http, $localStorage) {
+angular.module('market-front').controller('indexController', function ($rootScope, $scope, $http, $localStorage,$location) {
     const contextPath = 'http://localhost:8189/market';
 
     $scope.tryToAuth = function () {
@@ -81,6 +85,11 @@ angular.module('market-front').controller('indexController', function ($rootScop
             return false;
         }
     };
+
+    $scope.goToRegistrationPage = function (){
+        $location.path('/registration');
+    }
+
 
 });
 

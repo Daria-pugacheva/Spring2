@@ -1,5 +1,6 @@
 package ru.gb.pugacheva.webapp.services;
 
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.gb.pugacheva.webapp.exceptions.ResourceNotFoundException;
