@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import ru.gb.pugacheva.webapp.dtos.AuthRequest;
 import ru.gb.pugacheva.webapp.dtos.AuthResponse;
+import ru.gb.pugacheva.webapp.dtos.UserInfo;
 import ru.gb.pugacheva.webapp.exceptions.MarketError;
 import ru.gb.pugacheva.webapp.services.UserService;
 import ru.gb.pugacheva.webapp.utils.JwtTokenUtil;
@@ -31,6 +32,19 @@ public class AuthController {
             return new ResponseEntity<>(new MarketError("Incorrect username or password"), HttpStatus.UNAUTHORIZED);
         }
         UserDetails userDetails = userService.loadUserByUsername(authRequest.getUsername());
+        String token = jwtTokenUtil.generateToken(userDetails);
+        return ResponseEntity.ok(new AuthResponse(token));
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<?> registerAndcreateAuthToken(@RequestBody UserInfo userInfo) {
+        userService.saveNewUser(userInfo.getUsername(),userInfo.getPassword(), userInfo.getEmail());
+        try {
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userInfo.getUsername(), userInfo.getPassword()));
+        } catch (BadCredentialsException ex) {
+            return new ResponseEntity<>(new MarketError("Incorrect username or password"), HttpStatus.UNAUTHORIZED);
+        }
+        UserDetails userDetails = userService.loadUserByUsername(userInfo.getUsername());
         String token = jwtTokenUtil.generateToken(userDetails);
         return ResponseEntity.ok(new AuthResponse(token));
     }
