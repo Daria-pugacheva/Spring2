@@ -2,6 +2,7 @@ package ru.gb.pugacheva.webapp.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.util.List;
@@ -16,6 +17,10 @@ public class Order {
     @Column(name = "id")
     private Long id;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     @Column(name = "phone")
     private String phone;
 
@@ -28,16 +33,12 @@ public class Order {
     @OneToMany(mappedBy = "order")
     private List<OrderItem> orderItems;
 
-    public Order(String phone, String address, int totalPrice, List<OrderItem> orderItems) {
+    public Order(String phone, String address, int totalPrice, List<OrderItem> orderItems, User currentUser) {
         this.phone = phone;
         this.address = address;
         this.totalPrice = totalPrice;
         this.orderItems = orderItems;
+        this.user = currentUser;
     }
 
-    public Order(String phone, String address, int totalPrice) {
-        this.phone = phone;
-        this.address = address;
-        this.totalPrice = totalPrice;
-    }
 }

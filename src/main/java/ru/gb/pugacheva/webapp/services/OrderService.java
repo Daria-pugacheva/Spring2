@@ -15,20 +15,10 @@ import java.util.List;
 public class OrderService {
     private final OrderRepository orderRepository;
 
-    public Order saveOrderWithoutItems(Order order) {
-        return orderRepository.save(order);
-    }
-
     public Order findOrderById(Long orderId) {
         return orderRepository.findById(orderId).orElseThrow(()-> new ResourceNotFoundException
                 ("Order id= " + orderId + " not found"));
     }
-
-//    @Transactional // этот метод провоцирует StackOverFlow
-//    public void saveItemsInOrder(Long orderId, List<OrderItem> orderItems) {
-//        Order currentOrder = findOrderById(orderId);
-//        currentOrder.setOrderItems(orderItems);
-//    }
 
     @Transactional
     public void printOrderInfo (Long orderId){
@@ -36,6 +26,12 @@ public class OrderService {
         List <OrderItem> itemsInOrder = order.getOrderItems();
         System.out.printf("Информация о заказе: id=%d, phone=%s, address=%s, totalPrice=%d",
                 order.getId(),order.getPhone(),order.getAddress(),order.getTotalPrice());
-        System.out.println("Список товаров в заказе: " + itemsInOrder); // тут выводится null
+        System.out.println("\n Список товаров в заказе: " + itemsInOrder);
+        System.out.printf("\n Информация по покупателе: id = %d, имя = %s ", order.getUser().getId(), order.getUser().getUsername());
+
+    }
+
+    public Order saveOrder(Order order) {
+        return orderRepository.save(order);
     }
 }

@@ -35,12 +35,24 @@ public class OrderItem {
     @JoinColumn(name = "order_id")
     private Order order;
 
-    public OrderItem(OrderItemDto orderItemDto, Order order) {
+    public OrderItem(OrderItemDto orderItemDto) {
         this.productId = orderItemDto.getProductId();
         this.productTitle = orderItemDto.getProductTitle();
         this.quantity = orderItemDto.getQuantity();
         this.pricePerProduct = orderItemDto.getPricePerProduct();
         this.price = orderItemDto.getPrice();
-        this.order = order;
+    }
+
+    @Override
+    public String toString() {
+        return "OrderItem{" +
+                "id=" + id +
+                ", productId=" + productId +
+                ", productTitle='" + productTitle + '\'' +
+                ", quantity=" + quantity +
+                ", pricePerProduct=" + pricePerProduct +
+                ", price=" + price +
+                ", order id=" + order.getId() +
+                '}';
     }
 }

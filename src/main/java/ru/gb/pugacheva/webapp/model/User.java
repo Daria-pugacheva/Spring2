@@ -7,6 +7,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Data
@@ -32,6 +33,9 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Collection<Role> roles;
 
+    @OneToMany(mappedBy = "user")
+    private List<Order> orders;
+
     @CreationTimestamp
     @Column(name = "created_at")
     private LocalDateTime createdAt;
@@ -40,9 +44,5 @@ public class User {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-//    public User(String username, String password, String email) {
-//        this.username = username;
-//        this.password = password;
-//        this.email = email;
-//    }
+
 }
