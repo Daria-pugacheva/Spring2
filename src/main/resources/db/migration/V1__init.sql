@@ -78,3 +78,24 @@ insert into users_roles (user_id, role_id)
 values (1, 1),
        (2, 2);
 
+create table orders
+(
+    id          bigserial primary key,
+    user_id     bigint references users (id),
+    phone       varchar(255),
+    address     varchar(255),
+    total_price int
+);
+
+
+create table order_items
+(
+    id                bigserial primary key,
+    product_id        bigint,
+    product_title     varchar(255),
+    quantity          int,
+    price_per_product int,
+    price             int,
+    order_id          bigint references orders (id)
+);
+
