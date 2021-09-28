@@ -6,6 +6,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.gb.pugacheva.webapp.dtos.ProductDto;
+import ru.gb.pugacheva.webapp.dtos.soap.ProductSoapDto;
 import ru.gb.pugacheva.webapp.exceptions.ResourceNotFoundException;
 import ru.gb.pugacheva.webapp.model.Category;
 import ru.gb.pugacheva.webapp.model.Product;
@@ -14,6 +15,8 @@ import ru.gb.pugacheva.webapp.repositories.ProductRepository;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -49,6 +52,19 @@ public class ProductService {
                             ("Category title= " + productDto.getCategoryTitle() + " not found"));
             product.setCategory(category);
         }
+    }
+
+    public static final Function<Product, ProductSoapDto> functionEntityToSoap = pe -> {
+        ProductSoapDto p = new ProductSoapDto();
+        p.setId(pe.getId());
+        p.setTitle(pe.getTitle());
+        p.setPrice(pe.getPrice());
+        p.setCategoryTitle(pe.getCategory().getTitle());
+        return p;
+    };
+
+    public List<ProductSoapDto> findAllForSoap() {
+        return productRepository.findAll().stream().map(functionEntityToSoap).collect(Collectors.toList());
     }
 
 }
