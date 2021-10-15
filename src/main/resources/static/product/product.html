@@ -1,0 +1,28 @@
+<div class="container">
+    <p></p>
+    <h3>Страница товара</h3>
+    <p>{{'Название продукта: ' + current_product.title}}</p>
+    <p>{{'Категория: ' + current_product.categoryTitle}}</p>
+    <p>{{'Цена: ' + current_product.price}}</p>
+    <br/>
+    <br/>
+    <h3>Отзывы о товаре</h3>
+
+    <p ng-repeat='f in current_feedbacks'>
+        {{'Отзыв пользователя с ID ' + f.userId + ': ' + f.feedbackText}}</p>
+    <br/>
+    <br/>
+
+    <div ng-show="isUserLoggedIn()">
+            <h3>Оставить свой отзыв</h3>
+            <form novalidate ng-submit="saveFeedback(current_product.id)">
+                <input class="form-control" type="text" placeholder="Напишите здесь свой отзыв"
+                       ng-model="feedback.feedbackText">
+                <p></p>
+                <button type="submit" class="btn btn-primary">Сохранить отзыв</button>
+            </form>
+
+    </div>
+
+
+</div>

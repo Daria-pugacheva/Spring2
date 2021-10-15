@@ -34,6 +34,10 @@
                 templateUrl: 'profile/profile.html',
                 controller: 'profileController'
             })
+            .when('/product/:productId', {
+                templateUrl: 'product/product.html',
+                controller: 'productController'
+            })
             .otherwise({
                 redirectTo: '/'
             });

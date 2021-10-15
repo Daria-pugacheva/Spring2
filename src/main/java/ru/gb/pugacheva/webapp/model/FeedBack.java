@@ -4,42 +4,28 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import ru.gb.pugacheva.webapp.dtos.OrderItemDto;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-
+@Entity
+@Table(name = "feedback")
 @Data
 @NoArgsConstructor
-@Entity
-@Table (name = "order_items")
-public class OrderItem {
-
+public class FeedBack {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "order_id")
-    private Order order;
+    @Column(name="user_id")
+    private Long userId;
 
-//    @Column(name = "user_name")
-//    private String userName;
+    @Column(name="product_id") //в принципе, а можно  и не увязывать с таблицей продуктов?
+    private Long productId;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    private Product product;
-
-    @Column(name = "quantity")
-    private int quantity;
-
-    @Column(name = "price_per_product")
-    private int pricePerProduct;
-
-    @Column(name = "price")
-    private int price;
+    @Column(name = "feedback_text")
+    private String feedbackText;
 
     @CreationTimestamp
     @Column(name = "created_at")
@@ -48,5 +34,6 @@ public class OrderItem {
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
 
 }

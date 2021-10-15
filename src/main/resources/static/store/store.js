@@ -32,6 +32,10 @@ angular.module('market-front').controller('storeController', function ($scope, $
         $location.path('/edit_product/' + productId);
     }
 
+    $scope.goToProductPage = function (productId){
+        $location.path('/product/' + productId);
+    }
+
     $scope.addToCart = function (productId) {
         $http ({
             url: contextPath + 'api/v1/cart/' + $localStorage.webMarketGuestCartId + '/add/' + productId,

@@ -6,7 +6,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.gb.pugacheva.webapp.dtos.OrderDetailsDto;
 import ru.gb.pugacheva.webapp.dtos.OrderDto;
+import ru.gb.pugacheva.webapp.dtos.ProductDto;
 import ru.gb.pugacheva.webapp.exceptions.ResourceNotFoundException;
+import ru.gb.pugacheva.webapp.model.OrderItem;
 import ru.gb.pugacheva.webapp.model.User;
 import ru.gb.pugacheva.webapp.services.CartService;
 import ru.gb.pugacheva.webapp.services.OrderService;
@@ -32,5 +34,10 @@ public class OrderController {
     public List<OrderDto> getOrdersForCurrentUser (Principal principal){
        return orderService.findAllByUsername(principal.getName()).stream().map(OrderDto::new).collect(Collectors.toList());
     }
+
+//    @GetMapping("/{productId}")
+//    public OrderItem findProductInOrders (@PathVariable Long productId, Principal principal){
+//        return orderService.findProductInOrders(principal.getName(), productId);
+//    }
 
 }
