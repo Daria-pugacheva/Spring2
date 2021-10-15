@@ -5,7 +5,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
 import ru.gb.pugacheva.webapp.dtos.OrderDetailsDto;
+import ru.gb.pugacheva.webapp.dtos.OrderDto;
 import ru.gb.pugacheva.webapp.dtos.OrderItemDto;
 import ru.gb.pugacheva.webapp.dtos.ProductDto;
 import ru.gb.pugacheva.webapp.exceptions.ResourceNotFoundException;
@@ -18,6 +20,7 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -42,6 +45,7 @@ public class OrderService {
         for (OrderItemDto i : cart.getItems()) {
             OrderItem orderItem = new OrderItem();
             orderItem.setOrder(order);
+//            orderItem.setUserName(order.getUser().getUsername());
             orderItem.setPrice(i.getPrice());
             orderItem.setPricePerProduct(i.getPricePerProduct());
             orderItem.setQuantity(i.getQuantity());
@@ -60,6 +64,12 @@ public class OrderService {
         return orderRepository.findAllByUsername(username);
     }
 
+//    public OrderItem findProductInOrders(String userName, Long productId) {
+//        if(orderRepository.findAllByUserAndProductId(userName,productId).size()>0){
+//            return orderRepository.findAllByUserAndProductId(userName,productId).get(0);
+//        }
+//        throw new ResourceNotFoundException ("Не удалось найти продукт ID продукта: " + productId);
+//    }
 
 }
 
