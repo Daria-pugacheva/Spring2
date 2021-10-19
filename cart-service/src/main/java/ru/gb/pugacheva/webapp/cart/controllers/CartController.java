@@ -29,18 +29,18 @@ public class CartController {
     }
 
     @GetMapping("/{uuid}/add/{productId}")
-    public void add(@RequestHeader (required = false)String username, @PathVariable String uuid, @PathVariable Long productId) {
+    public void add(@RequestHeader (required = false) String username, @PathVariable String uuid, @PathVariable Long productId) {
         ProductDto product = productServiceIntegration.getProductById(productId);
         cartService.addToCart(getCurrentCartUuid(username, uuid), product);
     }
 
     @GetMapping("/{uuid}/decrement/{productId}")
-    public void decrement(@RequestHeader String username, @PathVariable String uuid, @PathVariable Long productId) {
+    public void decrement(@RequestHeader (required = false) String username, @PathVariable String uuid, @PathVariable Long productId) {
         cartService.decrementItem(getCurrentCartUuid(username, uuid), productId);
     }
 
     @GetMapping("/{uuid}/remove/{productId}")
-    public void remove(@RequestHeader String username, @PathVariable String uuid, @PathVariable Long productId) {
+    public void remove(@RequestHeader (required = false) String username, @PathVariable String uuid, @PathVariable Long productId) {
         cartService.removeItemFromCart(getCurrentCartUuid(username, uuid), productId);
     }
 

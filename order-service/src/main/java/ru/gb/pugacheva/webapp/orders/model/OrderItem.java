@@ -1,4 +1,4 @@
-package ru.gb.pugacheva.webapp.core.model;
+package ru.gb.pugacheva.webapp.orders.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,9 +23,15 @@ public class OrderItem {
     @JoinColumn(name = "order_id")
     private Order order;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    private Product product;
+//    @ManyToOne
+//    @JoinColumn(name = "product_id")
+//    private Product product;
+
+    @Column(name = "product_id")
+    private Long productId; //вместо продукта
+
+    @Column(name = "product_title")
+    private String productTitle; // вместо продукта
 
     @Column(name = "quantity")
     private int quantity;

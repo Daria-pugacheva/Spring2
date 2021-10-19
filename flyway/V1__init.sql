@@ -49,8 +49,8 @@ create table users
 (
     id         bigserial primary key,
     username   varchar(30) not null,
-    first_name   varchar(80) not null,
-    last_name   varchar(80) not null,
+    first_name varchar(80) not null,
+    last_name  varchar(80) not null,
     password   varchar(80) not null,
     email      varchar(50) unique,
     created_at timestamp default current_timestamp,
@@ -77,8 +77,10 @@ values ('ROLE_USER'),
        ('ROLE_ADMIN');
 
 insert into users (username, first_name, last_name, password, email)
-values ('user', 'Bob', 'Johnson', '$2a$04$Fx/SX9.BAvtPlMyIIqqFx.hLY2Xp8nnhpzvEEVINvVpwIPbA3v/.i', 'bob_johnson@gmail.com'),
-       ('admin', 'John', 'Johnson', '$2a$04$Fx/SX9.BAvtPlMyIIqqFx.hLY2Xp8nnhpzvEEVINvVpwIPbA3v/.i', 'john_johnson@gmail.com');
+values ('user', 'Bob', 'Johnson', '$2a$04$Fx/SX9.BAvtPlMyIIqqFx.hLY2Xp8nnhpzvEEVINvVpwIPbA3v/.i',
+        'bob_johnson@gmail.com'),
+       ('admin', 'John', 'Johnson', '$2a$04$Fx/SX9.BAvtPlMyIIqqFx.hLY2Xp8nnhpzvEEVINvVpwIPbA3v/.i',
+        'john_johnson@gmail.com');
 
 insert into users_roles (user_id, role_id)
 values (1, 1),
@@ -87,7 +89,9 @@ values (1, 1),
 create table orders
 (
     id         bigserial primary key,
-    user_id    bigint references users (id),
+--     user_id    bigint references users (id),
+--     user_id    bigint,
+    user_name    varchar(255),
     address    varchar(255),
     phone      varchar(255),
     price      integer,
@@ -99,7 +103,9 @@ create table order_items
 (
     id                bigserial primary key,
     order_id          bigint references orders (id),
-    product_id        bigint references products (id),
+--     product_id        bigint references products (id),
+    product_id        bigint,
+    product_title     varchar(255),
     quantity          integer,
     price_per_product integer,
     price             integer,

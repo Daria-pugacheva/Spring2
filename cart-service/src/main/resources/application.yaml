@@ -8,5 +8,6 @@ utils:
 integration:
   product-service:
     url: http://localhost:8189/market-core
-
+  order-service:
+    url: http://localhost:8190/market-order
 
