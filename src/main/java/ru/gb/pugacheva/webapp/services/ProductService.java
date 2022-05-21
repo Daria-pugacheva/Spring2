@@ -14,8 +14,6 @@ import ru.gb.pugacheva.webapp.model.Product;
 import ru.gb.pugacheva.webapp.repositories.ProductRepository;
 import ru.gb.pugacheva.webapp.repositories.specifications.ProductSpecifications;
 
-import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
 
 @Service
